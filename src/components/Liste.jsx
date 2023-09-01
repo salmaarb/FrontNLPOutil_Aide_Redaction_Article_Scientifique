@@ -1,112 +1,219 @@
-import React, { useEffect, useState } from 'react';
-import { getPinpoints } from '../service/api'; // Import de la fonction pour récupérer les pinpoints depuis le service API
-import ImageRemplace from '../assets/image/wemap2.png'; // Import de l'image de remplacement
-import Footer from '../components/Footer'; // Import du composant Footer
-import Search from '../components/Search'; // Import du composant Search
-import '../assets/css/Liste.css'; // Import du fichier CSS Liste.css
-const Liste = () => {
-  // State pour stocker les données des pinpoints
-  const [pinpoints, setPinpoints] = useState([]);
-  // State pour gérer la pagination
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
-  // State pour gérer la recherche
-  const [searchrequete, setSearchrequete] = useState('');
+/*
+=========================================================
+* Material Kit 2 React - v2.1.0
+=========================================================
 
-  // Effet pour récupérer le nombre total de pages
-  useEffect(() => {
-    getPinpoints('', 0, 1)
-      .then((data) => {
-        setTotalPages(Math.ceil(data.total / limit));
-      })
-      .catch((error) => console.error(error));
-  }, [limit]);
+* Product Page: https://www.creative-tim.com/product/material-kit-react
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-  // Fonction pour récupérer les pinpoints en fonction de la recherche, de la pagination, et de la limite d'affichage
-  const chercherPinpoints = (requete, offset, limit) => {
-    getPinpoints(requete, offset, limit)
-      .then((data) => {
-        setPinpoints(data);
-        setTotalPages(Math.ceil(data.total / limit));
-      })
-      .catch((error) => console.error(error));
-  };
+Coded by www.creative-tim.com
 
-  // Effet pour mettre à jour les pinpoints en fonction de la recherche, de la pagination et de la limite d'affichage
-  useEffect(() => {
-    const offset = (page - 1) * limit;
-    chercherPinpoints(searchrequete, offset, limit);
-  }, [page, limit, searchrequete]);
+ =========================================================
 
-  // Fonction pour rediriger vers la carte du pinpoint sélectionné
-  const VoirMap = (pinpointId) => {
-    window.location.href = `https://livemap.getwemap.com/#/pinpoints/${pinpointId}`;
-  };
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
 
-  // Fonction pour passer à la page précédente
-  const handlePrecedentPage = () => {
-    setPage((PrecedentPage) => Math.max(PrecedentPage - 1, 1));
-  };
+import React  from 'react';
 
-  // Fonction pour passer à la page suivante
-  const handleNextPage = () => {
-    setPage((PrecedentPage) => PrecedentPage + 1);
-  };
+import ExampleBackendQuery from './ExampleBackendQuery'; 
 
+
+// Material Kit 2 React components
+import A from '../assets/images/delivery.png';
+import B from '../assets/images/control.png';
+import C from '../assets/images/search2.png';
+import D from '../assets/images/checkmark.png';
+function Liste() {
+  // Function to append a script element to the <head>
+ 
   return (
-    <div>
-      {/* Composant Search pour effectuer des recherches avec une recherche automatique*/}
-      <Search
-        onSearch={(requete) => setSearchrequete(requete)}
-        placeholder="Rechercher...."
-      />
-      <ul className="liste-container">
-        {/* Mapping des pinpoints pour les afficher sous forme de liste */}
-        {pinpoints.map((pinpoint) => (
-          <li key={pinpoint.id} className="liste-item">
-            <div style={{ flex: 1 }}>
-              {/* Affichage de l'image du pinpoint ou de l'image de remplacement si l'image n'existe pas */}
-              <div
-                className="pinpoint-image"
-                style={{
-                  backgroundImage: `url(${pinpoint.media_url || ImageRemplace})`,
-                }}
-              >
-                {!pinpoint.media_url && (
-                  <img src={ImageRemplace} alt="Image de remplacement" />
-                )}
-              </div>
+    <>
 
-            </div>
-            <div style={{ flex: 6, textAlign: 'left' }}>
-              {/* Affichage du nom et de l'adresse du pinpoint */}
-              <h2 style={{ fontWeight: 'bold' }}>{pinpoint.name}</h2>
-              <p>{pinpoint.address}</p>
-            </div>
-            <div style={{ flex: 1, textAlign: 'right', marginLeft: '90px' }}>
-              {/* Bouton pour voir le pinpoint sur la carte */}
-              <button
-                onClick={() => VoirMap(pinpoint.id)}
-                className="button-view-map"
-              >
-                Voir sur la carte
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      
-      {/* Composant Footer pour gérer la pagination */}
-      <Footer
-        page={page}
-        totalPages={totalPages}
-        handlePrecedentPage={handlePrecedentPage}
-        handleNextPage={handleNextPage}
-        isLastPage={pinpoints.length < limit}
-      />
+   
+        {/* Header */}
+     
+
+        {/* Main Banner */}
+        
+        <div className="main-banner" id="top">
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-7">
+          <div className="caption header-text">
+            <h6>Introducing PaperGenius</h6>
+            <div className="line-dec"></div>
+            <h4>Unlock Your <em>Scientific</em> Writing <span>Potential</span></h4>
+            <p>Discover a smarter way to write research papers and theses with Paper Genius, your personal AI writing companion. Elevate your work while maintaining the utmost academic quality – all without the stress.</p>
+            <div className="main-button scroll-to-section"><a href="#services">Get Started</a></div>
+            <span>or</span>
+            <div className="second-button"><a href="faqs.html">Check our FAQs</a></div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+        {/* Services */}
+        <div className="services section" id="services">
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-6 offset-lg-6">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-heading">
+                <h2>We Provide <em>Different Services</em> &amp;
+                  <span>Features</span> 
+                </h2>
+                <div className="line-dec"></div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-sm-6">
+              <div className="service-item">
+                <div className="icon">
+                  <img src={A} alt="discover SEO" className="templatemo-feature" style={{ maxWidth: '280px' }}/>
+                </div>
+                <h4>Effortless Paper Structure</h4>
+                <p>Generate essential parts of your research papers seamlessly.</p>
+              </div>
+            </div>
+            <div className="col-lg-6 col-sm-6">
+              <div className="service-item">
+                <div className="icon">
+                  <img src={B} alt="data analysis" className="templatemo-feature" style={{ maxWidth: '280px' }}/>
+                </div>
+                <h4>Smart Paraphrasing</h4>
+                <p>Effortlessly rephrase sentences while retaining meaning and coherence.</p>
+              </div>
+            </div>
+            <div className="col-lg-6 col-sm-6">
+              <div className="service-item">
+                <div className="icon">
+                  <img src={C} alt="precise data" className="templatemo-feature" style={{ maxWidth: '280px' }}/>
+                </div>
+                <h4>Intelligent Suggestions</h4>
+                <p>Receive recommendations for similar articles  to elevate your paper.</p>
+              </div>
+            </div>
+            <div className="col-lg-6 col-sm-6">
+              <div className="service-item">
+                <div className="icon">
+                  <img src={D} alt="SEO marketing" className="templatemo-feature" style={{ maxWidth: '280px' }}/>
+                </div>
+                <h4>Orthographic Excellence</h4>
+                <p>Ensure precise spelling and grammar with built-in orthographic correction.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        {/* Contact Us */}
+        <div className="contact-us section" id="contact">
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="contact-us-content">
+            <div className="row">
+              <div className="col-lg-4">
+                <div id="map">
+                
+                </div>
+              </div>
+              <div className="col-lg-8">
+                <form id="contact-form" action="" method="post">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <div className="section-heading">
+                        <h2><em>Contact Us</em> &amp; Get In <span>Touch</span></h2>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <fieldset>
+                        <input type="name" name="name" id="name" placeholder="Your First Name..." required/>
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-6">
+                      <fieldset>
+                        <input type="surname" name="surname" id="surname" placeholder="Your Last Name..."
+                           required/>
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..."
+                          required=""/>
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-6">
+                      <fieldset>
+                        <input type="subject" name="subject" id="subject" placeholder="Subject..." />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <button type="submit" id="form-submit" className="orange-button">Send Message Now</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                </form>
+                <div className="more-info">
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div className="info-item">
+                        <i className="fa fa-phone"></i>
+                        <h4><a href="#">+33 6 24 94 80 83</a></h4>
+                        <h4><a href="#">+212 5 23 30 04 46</a></h4>
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="info-item">
+                        <i className="fa fa-envelope"></i>
+                        <h4><a href="#">3dsmartfactory@gmail.com</a></h4>
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="info-item">
+                        <i className="fa fa-map-marker"></i>
+                        <h4><a href="#">Villa Num 75, Subdivision station Mohammedia, Morocco</a></h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        {/* Footer */}
+        <footer>
+    <p className="text-center">This app was built by <a href="https://3dsmartfactory.csit.ma/" target="_blank">3D Smart Factory</a> interns</p>
+  </footer>
+  <ExampleBackendQuery />           
+
+
+
+
+
+
+
+
+
+</>
+
+
+
+
   );
-};
+}
 
 export default Liste;
