@@ -4,38 +4,51 @@ import ExampleBackendQuery from './ExampleBackendQuery';
 
 
 const GeneratorPage = () => {
-    const [generatedAbstract, setGeneratedAbstract] = useState('Generated Output');
+    const [generatedContent, setGeneratedContent] = useState('Generated Output');
     const [selectedOption, setSelectedOption] = useState('Abstract');
     const [inputValue, setInputValue] = useState('');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Track dropdown state
     const editorRef = useRef(null);
+  
     const handleInputChange = (event) => {
-        setInputValue(event.target.value);
-    }
-    const fetchGeneratedAbstract = async (prompt) => {
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/${prompt}`);
-            const data = await response.json();  console.log(data.data);
-            return data.data; // Extrait l'abstract généré de la réponse
-          
-        } catch (error) {
-            console.error('Erreur lors de la récupération de l\'abstract généré :', error);
-            return '';
-        }
-    }
-   
-    const updateGeneratedAbstract = async () => {
-        console.log("Jjj");
-        if (inputValue) {
-            const generatedAbstract = await fetchGeneratedAbstract(inputValue);
-            setGeneratedAbstract(generatedAbstract);
-        } else {
-            setGeneratedAbstract('Generated Output'); // Réinitialise si l'entrée est vide
-        }
-    }
- const handleOptionChange = (option) => {
-    console.log("salma");
-        setSelectedOption(option);
-    }
+      setInputValue(event.target.value);
+    };
+  
+    const fetchGeneratedContent = async (prompt, type) => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/${type}/${prompt}`);
+        const data = await response.json();
+        return data.data;
+      } catch (error) {
+        console.error('Error fetching generated content:', error);
+        return '';
+      }
+    };
+  
+    const updateGeneratedContent = async () => {
+      if (inputValue) {
+        const generatedContent = await fetchGeneratedContent(inputValue, selectedOption.toLowerCase());
+        setGeneratedContent(generatedContent);
+      } else {
+        setGeneratedContent('Generated Output');
+      }
+    };
+  
+    const toggleDropdown = () => {
+      setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
+    };
+  
+    const handleOptionChange = (option) => {
+      setSelectedOption(option);
+      setIsDropdownOpen(false); // Close the dropdown when an option is selected
+    };
+    
+  
+    const handleCopyToClipboard = () => {
+      editorRef.current.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    };
 
 
     return (
@@ -48,31 +61,34 @@ const GeneratorPage = () => {
             </div>
             <div className="search_box">
             <div className="dropdown">
-            <div className="default_option">{selectedOption}</div>  
-            <ul>
-              <li onClick={() => handleOptionChange('Abstract')}>Abstract</li>
-              <li onClick={() => handleOptionChange('Introduction')}>Introduction</li>
-              <li onClick={() => handleOptionChange('Section')}>Sections</li>
-              <li onClick={() => handleOptionChange('Conclusion')}>Conclusion</li>
-
-            </ul>
+            <select
+              className="dropdown-select" 
+              value={selectedOption}
+              onChange={handleOptionChange}
+            >
+              <option value="Abstract"  onClick={() => handleOptionChange('Abstract')} id="abstract-option">Abstract</option>
+              <option value="Introduction"  onClick={() => handleOptionChange('Introduction')} id="introduction-option">Introduction</option>
+              <option value="Conclusion"  onClick={() => handleOptionChange('Conclusion')} id="conclusion-option">Conclusion</option>
+              <option value="Sections"  onClick={() => handleOptionChange('Sections')} id="abstract-option">Sections</option>
+            </select>
         </div>
         <div className="search_field">
-        <input
-                    type="text"
-                    className="input"
-                    placeholder="Enter the title of your research paper..."
-                    value={inputValue}
-                    onChange={handleInputChange}
-
-                />
-        </div>
+            <input
+              type="text"
+              className="input"
+              placeholder="Enter the title of your research paper..."
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+          </div>
             
             
             
             
                      </div>
-            <button className="generate_button" onClick={updateGeneratedAbstract}>Generate</button>
+                     <button className="generate_button" onClick={updateGeneratedContent}>
+          Generate
+        </button>
             <div className="container">
                 <div className="generated_abstract" id="generated-abstract">
                     {generatedAbstract}
