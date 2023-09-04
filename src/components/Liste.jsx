@@ -44,9 +44,9 @@ function Liste() {
             <div className="line-dec"></div>
             <h4>Unlock Your <em>Scientific</em> Writing <span>Potential</span></h4>
             <p>Discover a smarter way to write research papers and theses with Paper Genius, your personal AI writing companion. Elevate your work while maintaining the utmost academic quality – all without the stress.</p>
-            <div className="main-button scroll-to-section"><a href="#services">Get Started</a></div>
+            <div className="main-button scroll-to-section"><a href="/SignIn">Login</a></div>
             <span>or</span>
-            <div className="second-button"><a href="faqs.html">Check our FAQs</a></div>
+            <div className="second-button"><a href="#services">Check our services</a></div>
           </div>
         </div>
       </div>

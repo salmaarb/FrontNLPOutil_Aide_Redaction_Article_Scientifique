@@ -218,6 +218,32 @@ p { margin: 10px 0; }
 	font-size: .80em;
 	padding: .25em .75em;
 }
+.dropdown-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #c5e8ef; /* Change border color to red */
+  border-radius: 10px; /* Increase border-radius for rounded corners */
+  background-color: #fff; /* Background color */
+  color: #084298; /* Text color (change to green) */
+  cursor: pointer;
+  outline: none; /* Remove the outline when focused */
+}
+
+.dropdown-select:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+}
+
+/* Customize the dropdown arrow */
+
+.dropdown-select::after {
+  content: '\25BC'; /* Unicode down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #0000ff; /* Arrow color (change to blue) */
+}
 
 .btn-default {
   border-color: #d9d9d9;

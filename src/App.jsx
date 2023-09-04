@@ -5,7 +5,7 @@ import GeneratorPage from '../src/components/GeneratorPage';
 
 import Paraphrase from './components/Paraphrase';
 import Recommend from './components/Recommend';
-
+import SignIn from './components/SignIn';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -13,21 +13,23 @@ const App = () => {
   return (
     <Router>
       <div>
-        <div className="header-container">
-          <Header />
-        </div>
-        <div>
-          <Routes>
-         
-
-            <Route path="/" element={<Liste />} />
-
-            <Route path="/generator" element={<GeneratorPage />} />
-            <Route path="/paraphrase" element={<Paraphrase />} />
-            <Route path="/recommend" element={<Recommend />} />
-
-          </Routes>
-        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <div className="header-container">
+                  <Header />
+                </div>
+                <Liste />
+              </>
+            }
+          />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/generator" element={<GeneratorPage />} />
+          <Route path="/paraphrase" element={<Paraphrase />} />
+          <Route path="/recommend" element={<Recommend />} />
+        </Routes>
       </div>
     </Router>
   );
