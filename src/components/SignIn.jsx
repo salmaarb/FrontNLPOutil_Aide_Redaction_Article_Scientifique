@@ -22,13 +22,12 @@ function SignIn() {
 
     try {
       const response = await axios.post('http://localhost:9004/api/auth/signin', {
-        email: formData.email, // Change to 'email'
+        email: formData.email,
         password: formData.password,
       });
       console.log('Sign in successful:', response.data);
       localStorage.setItem("user", JSON.stringify(response.data));
 
-      // Redirect to the desired location
       window.location.href = "/";
     } catch (error) {
       console.log('Sign in failed:', error);
@@ -49,7 +48,7 @@ function SignIn() {
           <div className="form-content">
             <div className="login-form">
               <div className="title">Login</div>
-              <form onSubmit={handleSignIn}> {/* Use onSubmit */}
+              <form onSubmit={handleSignIn}> 
                 <div >
                   <div className="input-box">
                     <i className="fas fa-envelope"></i>
@@ -75,7 +74,7 @@ function SignIn() {
                   </div>
                   <div className="text"><a href="#">Forgot password?</a></div>
                   <div className="button input-box">
-                    <button type="submit">Login</button> {/* Change to button */}
+                    <button type="submit">Login</button> 
                   </div>
                   <div className="text sign-up-text">Don't have an account? <label htmlFor="flip">Sign up now</label></div>
                 </div>
